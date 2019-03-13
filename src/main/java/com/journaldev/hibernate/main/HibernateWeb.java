@@ -10,6 +10,8 @@ import com.journaldev.hibernate.main.EmployeeForm;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
+import org.hibernate.Query;
+import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -36,10 +38,19 @@ public class HibernateWeb {
 			//Commit transaction
 			session.getTransaction().commit();
 			System.out.println("Employee ID="+emp.getId());
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session.createQuery("from Employee");
+			List<Employee> list = query.list();
+			String db_records="";
+			for (int i = 0; i < list.size(); i++) {
+				Employee e = (Employee) list.get(0);
+			  db_records=db_records+"<br>"+e.getName()+", "+e.getRole();
+			}
 
 			//terminate session factory, otherwise program won't end
 			HibernateUtil.getSessionFactory().close();
-			return "SUCCESS";
+			return db_records;
     }
 
 	public static void main(String[] args) {
