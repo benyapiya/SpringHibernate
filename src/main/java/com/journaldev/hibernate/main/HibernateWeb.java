@@ -44,7 +44,7 @@ public class HibernateWeb {
 			List<Employee> list = query.list();
 			String db_records="";
 			for (int i = 0; i < list.size(); i++) {
-				Employee e = (Employee) list.get(0);
+				Employee e = (Employee) list.get(i);
 			  db_records=db_records+"<br>"+e.getName()+", "+e.getRole();
 			}
 
