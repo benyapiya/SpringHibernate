@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.hibernate.Query;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @EnableAutoConfiguration
 public class HibernateWeb {
