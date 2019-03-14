@@ -40,6 +40,7 @@ public class HibernateWeb {
 				//Commit transaction
 				session.getTransaction().commit();
 				System.out.println("Employee ID="+emp.getId());
+				session.close();
 				session = HibernateUtil.getSessionFactory().getCurrentSession();
 				session.beginTransaction();
 				Query query = session.createQuery("from Employee");
@@ -49,9 +50,12 @@ public class HibernateWeb {
 					Employee e = (Employee) list.get(i);
 				  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
 				}
-			} finally {
+
+		  } catch (Exception ex) {
+		    throw ex;
+		  } finally {
 				//terminate session factory, otherwise program won't end
-			  HibernateUtil.getSessionFactory().close();
+			  session.close();
 			}
 			return "{\"all_entries\":\"" +db_records+"\"}";
     }
