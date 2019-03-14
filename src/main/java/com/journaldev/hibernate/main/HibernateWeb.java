@@ -31,32 +31,34 @@ public class HibernateWeb {
 			emp.setInsertTime(new Date());
 			String db_records="";
 			//Get Session
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			try {
-				//start transaction
-				session.beginTransaction();
-				//Save the Model object
-				session.save(emp);
-				//Commit transaction
-				session.getTransaction().commit();
-				System.out.println("Employee ID="+emp.getId());
-				session.close();
-				session = HibernateUtil.getSessionFactory().getCurrentSession();
-				session.beginTransaction();
-				Query query = session.createQuery("from Employee");
-				List<Employee> list = query.list();
 
-				for (int i = 0; i < list.size(); i++) {
-					Employee e = (Employee) list.get(i);
-				  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+				try {
+					//start transaction
+					session.beginTransaction();
+					//Save the Model object
+					session.save(emp);
+					//Commit transaction
+					session.getTransaction().commit();
+					System.out.println("Employee ID="+emp.getId());
+
+					session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+					session.beginTransaction();
+					Query query = session.createQuery("from Employee");
+					List<Employee> list = query.list();
+
+					for (int i = 0; i < list.size(); i++) {
+						Employee e = (Employee) list.get(i);
+					  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
+					}
+				} catch (Exception e){
+					System.out.println("Exception caught in Catch block");
+					System.out.println(e.toString());
+					HibernateUtil.closeSessionFactory();
 				}
 
-		  } catch (Exception ex) {
-		    throw ex;
-		  } finally {
-				//terminate session factory, otherwise program won't end
-			  session.close();
-			}
 			return "{\"all_entries\":\"" +db_records+"\"}";
     }
 
