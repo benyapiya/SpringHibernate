@@ -32,25 +32,27 @@ public class HibernateWeb {
 
 			//Get Session
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			//start transaction
-			session.beginTransaction();
-			//Save the Model object
-			session.save(emp);
-			//Commit transaction
-			session.getTransaction().commit();
-			System.out.println("Employee ID="+emp.getId());
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-			Query query = session.createQuery("from Employee");
-			List<Employee> list = query.list();
-			String db_records="";
-			for (int i = 0; i < list.size(); i++) {
-				Employee e = (Employee) list.get(i);
-			  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
+			try {
+				//start transaction
+				session.beginTransaction();
+				//Save the Model object
+				session.save(emp);
+				//Commit transaction
+				session.getTransaction().commit();
+				System.out.println("Employee ID="+emp.getId());
+				session = HibernateUtil.getSessionFactory().getCurrentSession();
+				session.beginTransaction();
+				Query query = session.createQuery("from Employee");
+				List<Employee> list = query.list();
+				String db_records="";
+				for (int i = 0; i < list.size(); i++) {
+					Employee e = (Employee) list.get(i);
+				  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
+				}
+			} finally {
+				//terminate session factory, otherwise program won't end
+			  HibernateUtil.getSessionFactory().close();
 			}
-
-			//terminate session factory, otherwise program won't end
-			//HibernateUtil.getSessionFactory().close();
 			return "{\"all_entries\":\"" +db_records+"\"}";
     }
 
