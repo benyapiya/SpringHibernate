@@ -46,7 +46,7 @@ public class HibernateWeb {
 			String db_records="";
 			for (int i = 0; i < list.size(); i++) {
 				Employee e = (Employee) list.get(i);
-			  db_records=db_records+"<div></div>"+e.getName()+", "+e.getRole();
+			  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
 			}
 
 			//terminate session factory, otherwise program won't end
