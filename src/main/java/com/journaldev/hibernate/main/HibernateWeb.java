@@ -50,7 +50,7 @@ public class HibernateWeb {
 			}
 
 			//terminate session factory, otherwise program won't end
-			HibernateUtil.getSessionFactory().close();
+			//HibernateUtil.getSessionFactory().close();
 			return "{\"all_entries\":\"" +db_records+"\"}";
     }
 
