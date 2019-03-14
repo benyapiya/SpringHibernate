@@ -29,7 +29,7 @@ public class HibernateWeb {
 			emp.setName(username);
 			emp.setRole(hobby);
 			emp.setInsertTime(new Date());
-
+			String db_records="";
 			//Get Session
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			try {
@@ -44,7 +44,7 @@ public class HibernateWeb {
 				session.beginTransaction();
 				Query query = session.createQuery("from Employee");
 				List<Employee> list = query.list();
-				String db_records="";
+
 				for (int i = 0; i < list.size(); i++) {
 					Employee e = (Employee) list.get(i);
 				  db_records=db_records+" :: "+e.getName()+", "+e.getRole();
