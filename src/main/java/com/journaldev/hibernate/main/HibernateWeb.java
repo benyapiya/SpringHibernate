@@ -56,7 +56,8 @@ public class HibernateWeb {
 				} catch (Exception e){
 					System.out.println("Exception caught in Catch block");
 					System.out.println(e.toString());
-					HibernateUtil.closeSessionFactory();
+				} finally {
+					HibernateUtil.closeSessionFactory();	
 				}
 
 			return "{\"all_entries\":\"" +db_records+"\"}";
