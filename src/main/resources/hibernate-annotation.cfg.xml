@@ -6,13 +6,13 @@
 	<session-factory>
 		<!-- Database connection properties - Driver, URL, user, password -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://172.31.6.207:3306/springhibernateex?useSSL=false</property>
+		<property name="hibernate.connection.url">jdbc:mysql://3.18.190.146:3306/springhibernateex?useSSL=false</property>
 		<property name="hibernate.connection.username">springhibernateex</property>
 		<property name="hibernate.connection.password">spring_12345</property>
-		
+
 		<!-- org.hibernate.HibernateException: No CurrentSessionContext configured! -->
 		<property name="hibernate.current_session_context_class">thread</property>
-		
+
 		<!-- Mapping with model class containing annotations -->
 		<mapping class="com.journaldev.hibernate.model.Employee1"/>
 	</session-factory>
